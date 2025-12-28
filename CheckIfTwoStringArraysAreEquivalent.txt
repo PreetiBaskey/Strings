@@ -1,0 +1,59 @@
+//approach - 1
+// class Solution {
+// public:
+//     bool arrayStringsAreEqual(vector<string>& word1, vector<string>& word2) {
+//         string s1 = "";
+//         string s2 = "";
+
+//         for(int i = 0; i < word1.size(); i++) {
+//             s1 += word1[i];
+//         }
+//         for(int i = 0; i < word2.size(); i++) {
+//             s2 += word2[i];
+//         }
+
+//         if(s1 == s2) {
+//             return true;
+//         }
+
+//         return false;
+//     }
+// };
+
+
+
+//approach - 2
+class Solution {
+public:
+    bool arrayStringsAreEqual(vector<string>& word1, vector<string>& word2) {
+        int i = 0;
+        int j = 0;
+        int w1ii = 0;
+        int w2ii = 0;
+        int m = word1.size();
+        int n = word2.size();
+
+        while(w1ii < m && w2ii < n) {
+            if(word1[w1ii][i] != word2[w2ii][j]) {
+                return false;
+            }
+            i++;
+            j++;
+
+            if(i == word1[w1ii].length()) {
+                i = 0;
+                w1ii++;
+            }
+            if(j == word2[w2ii].length()) {
+                j = 0;
+                w2ii++;
+            }
+        }
+
+        if(w1ii == m && w2ii == n) {
+            return true;
+        }
+
+        return false;
+    }
+};
