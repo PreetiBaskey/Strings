@@ -1,0 +1,17 @@
+class Solution {
+public: 
+    bool detectCapitalUse(string word) {
+        int capitalLetterCount = 0;
+        for(char &ch: word) {
+            if(ch >= 'A' && ch <= 'Z') {
+                capitalLetterCount++;
+            }
+        }
+
+        if(capitalLetterCount == word.length() || capitalLetterCount == 0 || (capitalLetterCount == 1 && isupper(word[0]))) {
+            return true;
+        }
+
+        return false;
+    }
+};      
