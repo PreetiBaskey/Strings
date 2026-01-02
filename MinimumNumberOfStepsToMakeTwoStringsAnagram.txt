@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int minSteps(string s, string t) {
+        unordered_map<char, int> smp; //key - char, value - frequency
+        unordered_map<char, int> tmp; //key - char, value - frequency
+        int result = 0;
+
+        for(char &ch: s) {
+            smp[ch]++;
+        }
+        for(char &ch: t) {
+            tmp[ch]++;
+        }
+
+        for(auto &mp: smp) {
+            char ch = mp.first;
+            int count = mp.second;
+            if(count > tmp[ch]) {
+                result += count - tmp[ch];
+            }
+        }
+
+        return result;
+    } 
+};
