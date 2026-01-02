@@ -1,0 +1,25 @@
+//approach - 1
+//time complexity - O(m + n)
+//space complexity - O(m + n)
+class Solution {
+public:
+    string eliminateBackspace(string &s) {
+        int n = s.length();
+        int i = 0;
+        string temp = "";
+        while(i < n) {
+            if(s[i] != '#') {
+                temp.push_back(s[i]);
+            }
+            else if(!temp.empty(                                                              )){
+                temp.pop_back();
+            }
+            i++;
+        }
+
+        return temp;
+    }
+    bool backspaceCompare(string s, string t) {
+        return eliminateBackspace(s) == eliminateBackspace(t);
+    }
+};
