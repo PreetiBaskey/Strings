@@ -1,0 +1,41 @@
+//approach - 1
+// class Solution {
+// public:
+//     string reverseWords(string s) {
+//         int n = s.length();
+
+//         for(int i = 0; i < n; i++) {
+//             if(s[i] != ' ') {
+//                 int j = i;
+//                 while(j < n && s[j] != ' ') {
+//                     j++;
+//                 }
+//                 reverse(begin(s) + i, begin(s) + j);
+//                 i = j;
+//             }
+//         }
+
+//         return s;
+//     }
+// };
+
+
+
+//appraoch - 2
+class Solution {
+public:
+    string reverseWords(string s) {
+        int n = s.length();
+        string result = "";
+        string token = "";
+        stringstream ss(s);
+
+        while(ss >> token) {
+            reverse(begin(token), end(token));
+            result += token + " ";
+        }
+        result = result.substr(0, result.length() - 1);
+
+        return result;      
+    }
+};
