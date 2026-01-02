@@ -1,0 +1,18 @@
+class Solution {
+public:
+    long long minimumSteps(string s) {
+        long long swapsNo = 0;
+        int n = s.length();
+        long long blackCount = 0; //black - 1
+        for(char &ch: s) {
+            if(ch == '1') {
+                blackCount++;
+            }
+            else if(ch == '0') {
+                swapsNo += blackCount;
+            }
+        }
+
+        return swapsNo;
+    }
+};
