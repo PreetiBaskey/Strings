@@ -1,0 +1,25 @@
+//approach - 1
+//time complexity - O(n)
+//space complexity - O(1)
+class Solution {
+public:
+    long long countSubstrings(string s, char c) {
+        int n = s.length();
+        long long count = 0;
+        long long subStringCount = 0;
+        for(int i = 0; i < n; i++) {
+            if(s[i] == c) {
+                subStringCount += 1;
+                subStringCount += count;
+                count = count + 1;
+            }
+        }
+
+        return subStringCount;
+    }
+};
+
+//approach - 2
+//time complexity - O(n)
+//space complexity - O(1)
+//formula = nCr + noOfGivenChar;
