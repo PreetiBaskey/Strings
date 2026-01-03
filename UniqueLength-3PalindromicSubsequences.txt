@@ -1,0 +1,124 @@
+//approach - 1
+//time complexity - O()
+//space complexity  - O()
+// class Solution {
+// public:
+//     int countPalindromicSubsequence(string s) {
+//         unordered_set<char> st;
+//         int n = s.length();
+//         int result = 0;
+
+//         //store unique characters in set
+//         for(char &ch: s) {
+//             st.insert(ch);
+//         }
+
+//         for(const char &ch: st) {
+//             int i = 0;
+//             //finding the left most occurrence of character
+//             while(i < n - 2 && s[i] != ch) {
+//                 i++;
+//             }
+//             //check for right most occurrence of character
+//             int j = n - 1;
+//             while(j >= 0 && s[j] != ch) {
+//                 j--;
+//             }
+//             //storing middle unique elements into the set
+//             if(j > i + 1) {
+//                 unordered_set<char> middleSt;
+//                 for(int p = i + 1; p < j; p++) {
+//                     middleSt.insert(s[p]);
+//                 }
+//                 //counting the unique elements and making palindrome
+//                 result += middleSt.size();
+//             }
+//         }
+
+//         return result;
+//     }
+// };
+
+
+//approach - 2
+//time complexity - O()
+//space complexity - O()
+//more clean code
+// class Solution {
+// public:
+//     int countPalindromicSubsequence(string s) {
+//         unordered_set<char> st;
+//         int n = s.length();
+//         int result = 0;
+
+//         //store unique characters in set
+//         for(char &ch: s) {
+//             st.insert(ch);
+//         }
+
+//         for(const char &ch: st) {
+//             int leftIndex = -1;
+//             int rightIndex = -1;
+
+//             for(int i = 0; i < n; i++) {
+//                 if(s[i] == ch) {
+//                     if(leftIndex == -1) {
+//                         leftIndex = i;
+//                     }
+//                     rightIndex = i;
+//                 }
+//             }
+
+//             unordered_set<char> middleEleSt;
+//             for(int middle = leftIndex + 1; middle <= rightIndex - 1; middle++) {
+//                 middleEleSt.insert(s[middle]);
+//             }
+//             result += middleEleSt.size();
+//         }
+
+//         return result;
+//     }
+// };
+
+
+
+//approach - 3
+//time complexity - O()
+//space complexity - O()
+class Solution {
+public:
+    int countPalindromicSubsequence(string s) {
+        int n = s.length();
+        int result = 0;
+        //1st int -> index of left most occurrence
+        //2nd int -> index of right most occurrence
+        vector<pair<int, int>> pairIndex(26, {-1, -1});
+
+        for(int i = 0; i < n; i++) {
+            char ch = s[i];
+            int idx = ch - 'a'; //a = 0, b = 1
+
+            if(pairIndex[idx].first == -1) {
+                pairIndex[idx].first = i; //storing left most occurrence
+            }
+            pairIndex[idx].second = i; //storing right most occurrence
+        }
+
+        for(int i = 0; i < 26; i++) {
+            int leftIndex = pairIndex[i].first;
+            int rightIndex = pairIndex[i].second;
+
+            if(leftIndex == -1) {
+                continue;
+            }
+
+            unordered_set<char> middleEleSt;
+            for(int middle = leftIndex + 1; middle <= rightIndex - 1; middle++) {
+                middleEleSt.insert(s[middle]);
+            }
+            result += middleEleSt.size();
+        }
+
+        return result;
+    }
+};
