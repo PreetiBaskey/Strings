@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool canMakeSubsequence(string str1, string str2) {
+        int m = str1.length();
+        int n = str2.length();
+        int i = 0, j = 0;
+        while(i < m && j < n) {
+            char currChar = str1[i];
+            char nextChar;
+            if(currChar == 'z') {
+                nextChar = 'a';
+            }
+            else {
+                nextChar = str1[i] + 1;
+            }
+            if((str2[j] == currChar) || (str2[j] == nextChar)) {
+                i++;
+                j++;
+            }
+            else {
+                i++;
+            }
+        }
+
+        return j == n;
+    }
+};
