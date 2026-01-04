@@ -1,0 +1,34 @@
+class Solution {
+public:
+    string customSortString(string order, string s) {
+        unordered_map<char, int> mp; //key - char, value - char frequency
+        int m = order.length();
+        int n = s.length();
+        string result = "";
+
+        for(char &ch: s) {
+            mp[ch]++;
+        }
+
+        int i = 0;
+        while(i < m) {
+            char ch = order[i];
+            int freq = mp[ch];
+            while(freq--) {
+                result += ch;
+                mp[ch]--;
+            }
+            i++;
+        }
+
+        for(auto &ele: mp) {
+            char ch = ele.first;
+            while(ele.second > 0) {
+                result += ele.first;
+                mp[ch]--;
+            }
+        }
+
+        return result;
+    }
+};
