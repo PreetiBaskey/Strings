@@ -1,0 +1,18 @@
+class Solution {
+public:
+    string addSpaces(string s, vector<int>& spaces) {
+        string result = "";
+        int i = 0;
+
+        for(int &space: spaces) {
+            while(i < space) {
+                result += s[i];
+                i++;
+            }
+            result += " ";
+        }
+        result +=  s.substr(i);//rest strings after adding last space
+        
+        return result;
+    }
+};
