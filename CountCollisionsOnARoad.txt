@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int countCollisions(string directions) {
+        int result = 0;
+        int n = directions.length();
+
+        int i = 0;
+        while(i < n && directions[i] == 'L') { //left side boundary 
+            i++;
+        }
+
+        int j = n - 1;
+        while(j >= 0 && directions[j] == 'R') { //right side boundary
+            j--;
+        }
+
+        while(i <= j) {
+            if(directions[i] != 'S') { //if not 'S', then either 'L' or 'R', increament 1 for each
+                result++;
+            }
+            i++;
+        }
+
+        return result;
+    }
+};
