@@ -1,0 +1,65 @@
+//approach - 1 - using right max element's index pre-computation
+//time complexity - O(n)
+//space complexity - O(n)
+// class Solution {
+// public:
+//     int maximumSwap(int num) {
+//         string s = to_string(num);
+//         int n = s.length();
+//         vector<int> maxRight(n); //stores the index of max element to right
+
+//         maxRight[n - 1] = n - 1;
+//         for(int i = n - 2; i >= 0; i--) {
+//             int maxRightIdx = maxRight[i + 1];
+//             int maxRightEle = s[maxRightIdx];
+            
+//             maxRight[i] = s[i] > maxRightEle ? i : maxRightIdx;
+//         }
+
+//         for(int i = 0; i < n; i++) {
+//             int maxRightIdx = maxRight[i];
+//             int maxRightEle = s[maxRightIdx];
+//             if(s[i] < maxRightEle) {
+//                 swap(s[i], s[maxRightIdx]);
+//                 return stoi(s);
+//             }
+//         }
+
+//         return num;
+//     }
+// };
+
+
+
+//approach - 2 - storing indexes of all element in a 10 (0-9) size vector
+//time complexity - O(n)
+//space complexity - O(1)
+class Solution {
+public:
+    int maximumSwap(int num) {
+        string s = to_string(num);
+        int n = s.length();
+        vector<int> maxRight(10, -1);
+
+        for(int i = 0; i < n; i++) {
+            int idx = s[i] - '0';
+            maxRight[idx] = i;
+        }
+
+        for(int i = 0; i < n; i++) {
+            char currChar = s[i];
+            int currDigit = currChar - '0';
+
+            for(int digit = 9; digit > currDigit; digit--) {
+                if(maxRight[digit] > i) {
+                    swap(s[i], s[maxRight[digit]]);
+                    return stoi(s);
+                }
+            } 
+        }
+
+        return num;
+    }
+};
+
+~~      
