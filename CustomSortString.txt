@@ -1,34 +1,63 @@
+//approach - 1 - using map
+//time complexity - O(m + n)
+//space complexity - O(1)
+// class Solution {
+// public:
+//     string customSortString(string order, string s) {
+//         unordered_map<char, int> mp; //key - char, value - char frequency
+//         int m = order.length();
+//         int n = s.length();
+//         string result = "";
+
+//         for(char &ch: s) { //can be store in array, instead of map, because lower case 26 letters available only
+//             mp[ch]++;
+//         }
+
+//         int i = 0;
+//         while(i < m) {
+//             char ch = order[i];
+//             int freq = mp[ch];
+//             while(freq--) {
+//                 result += ch;
+//                 mp[ch]--;
+//             }
+//             i++;
+//         }
+
+//         for(auto &ele: mp) {
+//             char ch = ele.first;
+//             while(ele.second > 0) {
+//                 result += ele.first;
+//                 mp[ch]--;
+//             }
+//         }
+
+//         return result;
+//     }
+// };
+
+
+
+//approach - 2 - using lambda expression
+//time complexity - O(m + nlogn)
+//space complexity - O(m + logn) 
 class Solution {
 public:
     string customSortString(string order, string s) {
-        unordered_map<char, int> mp; //key - char, value - char frequency
-        int m = order.length();
-        int n = s.length();
         string result = "";
+        unordered_map<char, int> mp;
 
-        for(char &ch: s) {
-            mp[ch]++;
-        }
-
-        int i = 0;
-        while(i < m) {
+        for(int i = 0; i < order.length(); i++) {
             char ch = order[i];
-            int freq = mp[ch];
-            while(freq--) {
-                result += ch;
-                mp[ch]--;
-            }
-            i++;
+            mp[ch] = i;
         }
 
-        for(auto &ele: mp) {
-            char ch = ele.first;
-            while(ele.second > 0) {
-                result += ele.first;
-                mp[ch]--;
-            }
-        }
+        auto myComparator = [&mp](char ch1,char ch2) {
+            return mp[ch1] < mp[ch2];
+        };
 
-        return result;
+        sort(begin(s), end(s), myComparator);
+
+        return s;
     }
 };
