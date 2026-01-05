@@ -1,0 +1,52 @@
+class Solution {
+public:
+    string fractionAddition(string expression) {
+        int nume = 0;
+        int deno = 1;
+        int n = expression.length();
+
+        int i = 0;
+        while(i < n) {
+            int currNume = 0;
+            int currDeno = 0;
+
+            bool isNeg = expression[i] == '-';
+
+            if(expression[i] == '+' || expression[i] == '-') {
+                i++;
+            }
+
+            //build the current numerator
+            while(i < n && isdigit(expression[i])) {
+                int val = expression[i] - '0';
+                currNume = (currNume * 10) + val;
+                i++;
+            }
+            i++; //to skip the divisor (/)
+
+            if(isNeg == true) {
+                currNume *= -1;
+            }
+            
+            //build the current denomerator
+            while(i < n && isdigit(expression[i])) {
+                int val = expression[i] - '0';
+                currDeno = (currDeno * 10) + val;
+                i++;
+            }
+
+            //calculting old (nume, deno) and new (nume, deno)
+            nume = nume * currDeno + currNume * deno;
+            deno = deno * currDeno;
+        }
+
+        //as problem ask to simply the answer
+        //found absolute to get a non negative value
+        int GCD = abs(__gcd(nume, deno));
+        nume /= GCD;
+        deno /= GCD;
+
+        //append the final answer (example - 3/2)
+        return to_string(nume) + "/" + to_string(deno);
+    }
+};
