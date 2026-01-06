@@ -1,0 +1,56 @@
+//approach - 1
+//time complexity - O(n * l^2)
+//space complexity - O(n * l)
+// class Solution {
+// public:
+//     vector<string> removeSubfolders(vector<string>& folder) {
+//         unordered_set<string> st(begin(folder), end(folder));
+//         vector<string> result;
+
+//         for(string currFolder: folder) {
+//             bool isSubFolder = false;
+//             string tempFolder = currFolder;
+//             while(!currFolder.empty()) {
+//                 size_t last_slash_index = currFolder.find_last_of('/');
+//                 currFolder = currFolder.substr(0, last_slash_index);
+
+//                 if(st.find(currFolder) != st.end()) {
+//                     isSubFolder = true;
+//                     break;
+//                 }
+//             }
+//             if(isSubFolder == false) {
+//                 result.push_back(tempFolder);
+//             }
+//         }
+
+//         return result;
+//     }
+// };
+
+
+
+//appraoch - 2 - using sorting
+//time complexity - O(n * l * logn)
+//space complexity - O(n * l)
+class Solution {
+public:
+    vector<string> removeSubfolders(vector<string>& folder) {
+        sort(begin(folder), end(folder));
+        int n = folder.size();
+        vector<string> result;
+
+        result.push_back(folder[0]);
+        for(int i = 1; i < n; i++) {
+            string currFolder = folder[i];
+            string lastFolder = result.back(); //getting the last folder, because we have/need to compare with that only
+            lastFolder += '/';
+
+            if(currFolder.find(lastFolder) != 0) {
+                result.push_back(currFolder);
+            }
+        }
+
+        return result;
+    }
+};
