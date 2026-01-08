@@ -1,0 +1,92 @@
+//approach - 1 - using unordered_map and counting
+//time complexity - O(n)
+//space complexity - O(1)
+// class Solution {
+// public:
+//     int minimumLength(string s) {
+//         //base case
+//         if(s.length() <= 2) {
+//             return s.length();
+//         }
+
+//         int result = 0;
+//         unordered_map<char, int> mp; //key - char, value - frequency
+//         for(char &ch: s) {
+//             mp[ch - 'a']++;
+//             if(mp[ch - 'a'] == 3) { 
+//                 mp[ch - 'a']--; //deleting 2 same char if count is equal to 3
+//                 mp[ch - 'a']--;
+//             }
+//         }
+
+//         for(auto &ele: mp) {
+//             result += ele.second;
+//         }
+
+//         return result;      
+//     }
+// };
+
+
+
+//approach - 2 - using vector<int>
+//time complexity - O(n)
+//space complexity - O(1)
+// class Solution {
+// public:
+//     int minimumLength(string s) {
+//         //base case
+//         if(s.length() <= 2) {
+//             return s.length();
+//         }
+
+//         int n = s.length();
+//         int deletedChar = 0; //storing how many characters are deleted
+//         vector<int> freq(26, 0);
+//         for(int i = 0; i < n; i++) {
+//             char ch = s[i];
+//             freq[ch - 'a']++;
+//             if(freq[ch - 'a'] == 3) {
+//                 freq[ch - 'a'] -= 2;
+//                 deletedChar += 2;
+//             }
+//         }
+
+//         return n - deletedChar;      
+//     }
+// };
+
+
+
+//appraoch - 3
+//time complexity - O(n)
+//space complexity - O(1)
+class Solution {
+public:
+    int minimumLength(string s) {
+        //base case
+        if(s.length() <= 2) {
+            return s.length();
+        }
+
+        int result = 0;
+        vector<int> freq(26, 0);
+        for(char &ch: s) {
+            freq[ch - 'a']++;
+        }
+
+        for(int i = 0; i < 26; i++) {
+            if(freq[i] == 0) { //if freq 0, just ignore it
+                continue;
+            }
+            if(freq[i] % 2 == 0) { //if freq is even, add 2 to result
+                result += 2;
+            }
+            else {
+                result += 1; //if freq is odd, add 1 to result
+            }
+        }
+
+        return result;      
+    }
+};
