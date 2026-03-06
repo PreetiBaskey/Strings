@@ -1,3 +1,6 @@
+//approach - 1
+//time complexity - O(n)
+//space complexity - O(1)
 class Solution {
 public:
     bool checkOnesSegment(string s) {
